@@ -1,0 +1,108 @@
+{
+  "planetes": [
+    {
+      "id": 1,
+      "nom": "Mercure",
+      "type": "Tellurique",
+      "diametre_km": 4879,
+      "masse_kg": 3.3e+23,
+      "distance_au_soleil_km": 57900000,
+      "lunes": 0,
+      "img": "images/mercure.png",
+      "zoom": 1.2,
+      "couleur": "#b1adad",
+      "fait": "Malgré sa proximité avec le Soleil, Mercure n'est pas la planète la plus chaude : Vénus la devance grâce à son épaisse atmosphère."
+    },
+    {
+      "id": 2,
+      "nom": "Vénus",
+      "type": "Tellurique",
+      "diametre_km": 12104,
+      "masse_kg": 4.87e+24,
+      "distance_au_soleil_km": 108200000,
+      "lunes": 0,
+      "img": "images/venus.png",
+      "zoom": 1.15,
+      "couleur": "#e0a458",
+      "fait": "Une journée sur Vénus (243 jours terrestres) dure plus longtemps qu'une année vénusienne (225 jours)."
+    },
+    {
+      "id": 3,
+      "nom": "Terre",
+      "type": "Tellurique",
+      "diametre_km": 12742,
+      "masse_kg": 5.97e+24,
+      "distance_au_soleil_km": 149600000,
+      "lunes": 1,
+      "img": "images/terrebis.png",
+      "zoom": 1.2,
+      "couleur": "#4a90d9",
+      "fait": "La Terre est la seule planète connue à abriter la vie... pour l'instant !"
+    },
+    {
+      "id": 4,
+      "nom": "Mars",
+      "type": "Tellurique",
+      "diametre_km": 6779,
+      "masse_kg": 6.42e+23,
+      "distance_au_soleil_km": 227900000,
+      "lunes": 2,
+      "img": "images/mars.png",
+      "zoom": 1.05,
+      "couleur": "#c1440e",
+      "fait": "Mars abrite Olympus Mons, le plus grand volcan connu du système solaire, presque 3 fois plus haut que l'Everest."
+    },
+    {
+      "id": 5,
+      "nom": "Jupiter",
+      "type": "Géante gazeuse",
+      "diametre_km": 139820,
+      "masse_kg": 1.9e+27,
+      "distance_au_soleil_km": 778500000,
+      "lunes": 95,
+      "img": "images/jupiter.png",
+      "zoom": 1.1,
+      "couleur": "#d8ae7e",
+      "fait": "Jupiter est si massive qu'elle pourrait contenir plus de 1 300 Terres en volume."
+    },
+    {
+      "id": 6,
+      "nom": "Saturne",
+      "type": "Géante gazeuse",
+      "diametre_km": 116460,
+      "masse_kg": 5.68e+26,
+      "distance_au_soleil_km": 1434000000,
+      "lunes": 145,
+      "img": "images/saturn.png",
+      "zoom": 1.3,
+      "couleur": "#e3c16f",
+      "fait": "Les anneaux de Saturne, larges de milliers de kilomètres, ne font en moyenne qu'une dizaine de mètres d'épaisseur."
+    },
+    {
+      "id": 7,
+      "nom": "Uranus",
+      "type": "Géante de glace",
+      "diametre_km": 50724,
+      "masse_kg": 8.68e+25,
+      "distance_au_soleil_km": 2871000000,
+      "lunes": 27,
+      "img": "images/uranus.png",
+      "zoom": 1.3,
+      "couleur": "#9fdde0",
+      "fait": "Uranus tourne presque sur le côté, avec un axe incliné à 98°, probablement à la suite d'un impact ancien."
+    },
+    {
+      "id": 8,
+      "nom": "Neptune",
+      "type": "Géante de glace",
+      "diametre_km": 49244,
+      "masse_kg": 1.02e+26,
+      "distance_au_soleil_km": 4495000000,
+      "lunes": 14,
+      "img": "images/neptune.png",
+      "zoom": 1.2,
+      "couleur": "#3d5fcf",
+      "fait": "Neptune met environ 165 années terrestres à effectuer un tour complet du Soleil."
+    }
+  ]
+}

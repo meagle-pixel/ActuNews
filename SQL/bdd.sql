@@ -1,5 +1,5 @@
-CREATE DATABASE spacenews;
-USE spacenews;
+CREATE DATABASE actunews;
+USE actunews;
 
 CREATE TABLE users(
    user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -112,11 +112,8 @@ CREATE TABLE article_categories(
 
 ALTER TABLE users ADD COLUMN user_mobile VARCHAR(20) AFTER user_last_name;
 DESCRIBE users;
-
-SELECT * FROM users;
-
 UPDATE users SET user_role = 'admin' WHERE user_email = 'm.eagle@hotmail.fr';
 
-SELECT * FROM users;
+
 
 
