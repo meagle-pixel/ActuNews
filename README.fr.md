@@ -1,189 +1,33 @@
-# SpaceNews – Projet fil rouge AFPA
+# ActuNews
 
-![Démonstration du projet](https://i.ibb.co/0jYKb3zq/screenplanet.jpg)
+*[English version available here](README.md)*
 
+ActuNews est un site d'actualités consacré à l'astronomie et à l'exploration spatiale, réalisé comme projet fil rouge de ma formation DWWM. L'objectif était de pratiquer un stack complet en partant de zéro : un petit MVC en PHP fait à la main, une base de données MySQL que j'ai conçue moi même, et une interface qui va un peu plus loin qu'une simple liste d'articles, avec une page planétarium interactive.
 
+![Page planétarium d'ActuNews](public/images/screenplanet.jpg)
 
-## Description du projet
+## Ce que le site propose
 
-**SpaceNews** est un site web dédié à la publication d'articles d'actualité liés à l'astronomie et au domaine spatial.  
-Ce projet est réalisé dans le cadre du **projet fil rouge DWWM**, avec pour objectif de mettre en pratique le développement web **full-stack** : front-end, back-end PHP et base de données MySQL.
+Côté public, on peut parcourir les articles publiés, les filtrer par catégorie, et ouvrir une page de détail avec la date, l'auteur et le contenu complet. Il y a un système d'inscription et de connexion basé sur les sessions PHP, et une page « Planétarium » plus expérimentale : un fond étoilé animé en Canvas, une bande de planètes qu'on peut faire défiler et cliquer, une petite fiche qui affiche le type, le diamètre, la masse, la distance au Soleil et le nombre de lunes de chaque planète, une frise qui représente les distances au Soleil à l'échelle, et un bandeau d'anecdotes. Le site est responsive, avec un menu burger qui prend le relais sous 1120px de large.
 
----
+Une fois connecté en tant qu'admin ou auteur, on accède à un espace d'administration pour créer, modifier et supprimer des articles, uploader une image pour chacun, et leur associer des catégories via une relation many to many. Les admins peuvent en plus gérer les rôles des utilisateurs.
 
-## Compétences visées
+## Comment c'est construit
 
-### HTML
-- Structurer une page web de manière sémantique
-- Organiser le contenu (titres, sections, articles, images)
-- Mettre en place une navigation claire
+Il n'y a pas de framework, c'est un petit MVC que j'ai construit moi même : `App\Controllers`, `App\Models`, `App\Views` et `App\Core` (qui regroupe la connexion à la base, le moteur de rendu des vues, la gestion de l'authentification et l'upload d'images). Les identifiants de connexion à la base vivent dans un fichier `.env` chargé avec `vlucas/phpdotenv`, et toutes les requêtes passent par PDO avec des requêtes préparées. Côté front, c'est du JavaScript natif, essentiellement l'API Canvas pour le fond étoilé et de la manipulation du DOM pour le planétarium et les filtres par catégorie, sans framework JS.
 
-### CSS
-- Mettre en forme une interface web
-- Utiliser Flexbox et/ou Grid
-- Gérer le positionnement des éléments
-- Adapter l’affichage aux différents écrans (responsive design)
+**Stack :** PHP 8, MySQL / PDO, Composer, JavaScript natif (API Canvas), HTML5 / CSS3 (Grid, Flexbox), Git.
 
-### JavaScript
-- Manipuler le DOM (`querySelector`, `querySelectorAll`, `getElementById`)
-- Gérer les événements utilisateur (`addEventListener`)
-- Utiliser des conditions (`if / else`)
-- Utiliser des boucles (`forEach`)
-- Charger et exploiter des données au format JSON (`fetch`, `.json()`)
-- Filtrer dynamiquement des éléments du DOM selon des critères utilisateur
-- Afficher / masquer des éléments dynamiquement (`style.display`)
-- Générer du HTML dynamiquement avec `innerHTML`
-- Utiliser les Promises et `async/await` pour les appels asynchrones
+## Base de données
 
-### PHP
-- Développer des pages dynamiques avec PHP
-- Gérer les formulaires (POST, validation, sécurité)
-- Gérer les sessions utilisateur (`$_SESSION`)
-- Implémenter un système d'authentification (connexion / déconnexion)
-- Gérer l'inscription des utilisateurs avec hashage du mot de passe (`password_hash`)
-- Vérifier les mots de passe de manière sécurisée (`password_verify`)
-- Upload et gestion de fichiers images côté serveur
-- Sécuriser les données avec `htmlspecialchars()`
-- Appliquer le pattern PRG (Post-Redirect-Get) pour éviter les doubles soumissions
-- Utiliser `header()` pour les redirections
-- Inclure des fichiers réutilisables (`require_once`) pour le header, footer et la BDD
-- Gérer les messages de succès/erreur via sessions
-- Utiliser Composer pour la gestion des dépendances
+Le schéma comprend huit tables : `users`, `categories`, `articles`, `article_categories` (la table de liaison entre articles et catégories), `commentary`, `forms`, `planets` et `systems`. Le schéma complet se trouve dans `SQL/bdd.sql`, et `SQL/articles_demo.sql` permet d'ajouter une dizaine d'articles de démonstration si on veut que le site ne soit pas vide au premier lancement.
 
-### MySQL & PDO
-- Concevoir et structurer une base de données relationnelle
-- Effectuer des requêtes SQL (SELECT, INSERT, UPDATE, DELETE)
-- Utiliser PDO avec des requêtes préparées pour éviter les injections SQL
-- Gérer des transactions (`beginTransaction`, `commit`, `rollBack`)
-- Gérer des relations entre tables (articles ↔ catégories via table de liaison)
-- Utiliser `lastInsertId()` pour récupérer l'id d'un enregistrement après insertion
-- Filtrer dynamiquement les données avec des clauses WHERE conditionnelles
-- Utiliser `fetchAll()` et `fetch()` avec `PDO::FETCH_ASSOC`
+## Installation en local
 
----
+Il faut PHP 8, MySQL et Composer. Clone le dépôt, lance `composer install`, puis copie `.env.example` en `.env` et renseigne l'hôte, le nom, l'utilisateur et le mot de passe de ta base. Importe `SQL/bdd.sql` dans MySQL pour créer le schéma, et éventuellement `SQL/articles_demo.sql` pour ajouter des articles de démonstration. Place le projet dans la racine web de ton serveur local (j'utilise XAMPP) et ouvre `public/index.php` dans le navigateur.
 
-## Fonctionnalités
+## À propos de moi
 
-### Espace public
-- **Affichage des articles** : liste paginée des articles publiés avec résumé et image
-- **Détail d'un article** : page dédiée avec contenu complet, catégorie et date
-- **Filtrage dynamique** : filtrage des articles par catégorie en JavaScript
-- **Planétarium interactif** : interface visuelle dédiée à l'exploration spatiale
-- **Tri des planètes** : filtrage dynamique des corps célestes via un fichier JSON
-- **Design responsive** : interface adaptée desktop et mobile
+Je suis Maxime Paulin, développeur web fraîchement titulaire du titre DWWM, et je poursuis actuellement une formation CDA (Concepteur Développeur d'Applications) à l'école CESI. Je suis à la recherche d'une alternance pour l'année prochaine.
 
-### Espace administration (accès restreint)
-- **Authentification** : connexion / déconnexion sécurisée avec sessions PHP
-- **Gestion des articles** : CRUD complet (créer, lire, modifier, supprimer)
-- **Upload d'images** : ajout d'une image à chaque article (JPG, PNG, WEBP)
-- **Gestion des catégories** : association de catégories aux articles
-- **Transactions BDD** : sécurisation des insertions multiples avec rollback en cas d'erreur
-
----
-
-## Stack technique
-
-| Technologie | Usage |
-|---|---|
-| HTML / CSS | Structure et mise en forme |
-| JavaScript | Filtres dynamiques, DOM |
-| PHP 8 | Back-end, logique métier |
-| MySQL | Base de données |
-| PDO | Accès sécurisé à la BDD |
-| Docker | Environnement local (LAMP) |
-| AlwaysData | Hébergement en ligne |
-
----
-
-## Installation locale
-
-### Prérequis
-- [Docker Desktop](https://www.docker.com) installé
-- Utilisation de GitHub 
-
-## Déploiement 
-- Site en ligne : https://maximepau.alwaysdata.net/index.php
-- Lien repository : https://github.com/meagle-pixel/SpaceNews.git
-
----
-
-## Structure du projet 
-
-```text
-SPACENEWS/
-├── admin/
-│   ├── article-create.php
-│   ├── article-delete.php
-│   ├── article-edit.php
-│   ├── articlesAdmin.php
-│   └── auth-check.php
-├── css/
-│   └── style.css
-├── images/
-├── includes/
-│   ├── db.php
-│   ├── footer.php
-│   └── header.php
-├── js/
-│   ├── data/
-│   └── index.js
-├── SQL/
-│   └── bdd.sql
-├── vendor/
-├── articles.php
-├── connexion.php
-├── deconnexion.php
-├── details.php
-├── index.php
-├── index2.php
-├── info.php
-├── inscription.php
-├── page.php
-├── ssolaire.php
-├── .env
-├── .gitignore
-├── composer.json
-├── composer.lock
-├── docker-compose.yml
-├── Dockerfile.php
-├── robots.txt
-└── README.md
-```
-
-## Captures d’écran / Démonstrat
-
-### Le formulaire
-
-![Formulaire](https://i.ibb.co/zTn00Snh/formulaire.png)
-
----
-
-### Le planétarium
-
-![Planétarium](https://i.ibb.co/gZVDcdqc/planetarium.png)
-
----
-
-### Tri des planètes
-
-![Tri des planètes](https://i.ibb.co/23xwVFD4/filtre.png)
-
-## Auteur 
-
-Maxime Paulin - Promotion DWWM 2025-2026
-
----
-
-Document créé pour la formation DWWM - Titre Professionnel Niveau 5  
-Référentiel RNCP37674 - Version 2026
-
-
-
-
-
-
-
-
-
-
-
+[LinkedIn](https://www.linkedin.com/in/maxime-paulin-968ab1266/) · [GitHub](https://github.com/meagle-pixel)

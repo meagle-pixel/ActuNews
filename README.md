@@ -1,219 +1,33 @@
-# SpaceNews – AFPA Fil Rouge Project
+# ActuNews
 
 *[Version française disponible ici](README.fr.md)*
 
-![Project demo](https://i.ibb.co/0jYKb3zq/screenplanet.jpg)
+ActuNews is a news website about astronomy and space exploration, built as my "fil rouge" project during my DWWM training. The idea was to practice a full stack from scratch: a small hand rolled MVC in PHP, a MySQL database I designed myself, and a front end that goes a bit further than a plain article list, with an interactive planetarium page.
 
-## Project description
+![Planetarium page of ActuNews](public/images/screenplanet.jpg)
 
-**SpaceNews** is a website dedicated to publishing news articles related to astronomy and space exploration.
-This project was built as part of the **DWWM fil rouge project**, with the goal of practicing full-stack web development: front-end, PHP back-end and MySQL database.
+## What it does
 
----
+On the public side, visitors can browse published articles, filter them by category, and open a full article page with its date, author and content. There's a registration and login system with sessions, and a "Planétarium" page that's a bit more experimental: a starfield background drawn on canvas, a horizontal strip of planets you can scroll through and click, a small modal with each planet's type, diameter, mass, distance to the Sun and number of moons, a timeline showing distances to the Sun to scale, and a band of fun facts. The whole site is responsive, and the header collapses into a hamburger menu below 1120px wide.
 
-## Skills covered
+Logged in as an admin or an author, you get access to a back office where you can create, edit and delete articles, upload an image for each one, and assign categories through a many to many relationship. Admins can also manage user roles.
 
-### HTML
-- Structure a web page using semantic elements
-- Organize content (headings, sections, articles, images)
-- Implement clear navigation
+## How it's built
 
-### CSS
-- Style a web interface
-- Use Flexbox and/or Grid
-- Manage element positioning
-- Adapt the layout to different screen sizes (responsive design)
+There's no framework here, it's a small MVC I put together myself: `App\Controllers`, `App\Models`, `App\Views` and `App\Core` (which holds the database connection, the view renderer, the auth helper and the image uploader). Database credentials live in a `.env` file loaded with `vlucas/phpdotenv`, and all queries go through PDO with prepared statements. On the front end it's plain JavaScript, mostly the Canvas API for the starfield and DOM manipulation for the planetarium and the category filters, no JS framework involved.
 
-### JavaScript
-- Manipulate the DOM (`querySelector`, `querySelectorAll`, `getElementById`)
-- Handle user events (`addEventListener`)
-- Use conditions (`if / else`)
-- Use loops (`forEach`)
-- Load and use JSON data (`fetch`, `.json()`)
-- Dynamically filter DOM elements based on user input
-- Show / hide elements dynamically (`style.display`)
-- Generate HTML dynamically with `innerHTML`
-- Use Promises and `async/await` for asynchronous calls
+**Stack:** PHP 8, MySQL / PDO, Composer, vanilla JavaScript (Canvas API), HTML5 / CSS3 (Grid, Flexbox), Git.
 
-### PHP
-- Build dynamic pages with PHP
-- Handle forms (POST, validation, security)
-- Manage user sessions (`$_SESSION`)
-- Implement an authentication system (login / logout)
-- Handle user registration with password hashing (`password_hash`)
-- Verify passwords securely (`password_verify`)
-- Upload and manage image files server-side
-- Secure data with `htmlspecialchars()`
-- Apply the PRG pattern (Post-Redirect-Get) to prevent double submissions
-- Use `header()` for redirects
-- Include reusable files (`require_once`) for header, footer and database
-- Manage success/error messages via sessions
-- Use Composer for dependency management
+## Database
 
-### MySQL & PDO
-- Design and structure a relational database
-- Write SQL queries (SELECT, INSERT, UPDATE, DELETE)
-- Use PDO with prepared statements to prevent SQL injections
-- Manage transactions (`beginTransaction`, `commit`, `rollBack`)
-- Manage relationships between tables (articles ↔ categories via junction table)
-- Use `lastInsertId()` to retrieve the id of a newly inserted record
-- Dynamically filter data with conditional WHERE clauses
-- Use `fetchAll()` and `fetch()` with `PDO::FETCH_ASSOC`
+The schema has eight tables: `users`, `categories`, `articles`, `article_categories` (the join table between articles and categories), `commentary`, `forms`, `planets` and `systems`. The full schema is in `SQL/bdd.sql`, and `SQL/articles_demo.sql` seeds a dozen demo articles if you want the site to look populated right away.
 
----
+## Running it locally
 
-## Features
+You'll need PHP 8, MySQL and Composer. Clone the repo, run `composer install`, then copy `.env.example` to `.env` and fill in your database host, name, user and password. Import `SQL/bdd.sql` into MySQL to create the schema, and optionally `SQL/articles_demo.sql` to add sample articles. Drop the project into your local server's web root (I use XAMPP) and point your browser at `public/index.php`.
 
-### Public area
-- **Article listing**: paginated list of published articles with summary and image
-- **Article detail**: dedicated page with full content, category and date
-- **Dynamic filtering**: filter articles by category using JavaScript
-- **Interactive planetarium**: visual interface dedicated to space exploration
-- **Planet sorting**: dynamic filtering of celestial bodies via a JSON file
-- **Responsive design**: interface adapted for desktop and mobile
+## About me
 
-### Administration area (restricted access)
-- **Authentication**: secure login / logout with PHP sessions
-- **Article management**: full CRUD (create, read, update, delete)
-- **Image upload**: add an image to each article (JPG, PNG, WEBP)
-- **Category management**: associate categories to articles
-- **DB transactions**: secure multiple inserts with rollback on error
+I'm Maxime Paulin, a web developer who just finished a DWWM qualification and is now continuing with a CDA (Concepteur Développeur d'Applications) training at CESI. I'm looking for a work study placement for next year.
 
----
-
-## Tech stack
-
-| Technology | Usage |
-|---|---|
-| HTML / CSS | Structure and styling |
-| JavaScript | Dynamic filters, DOM |
-| PHP 8 | Back-end, business logic |
-| MySQL | Database |
-| PDO | Secure database access |
-| Docker | Local environment (LAMP) |
-| AlwaysData | Online hosting |
-
----
-
-## Local installation
-
-### Prerequisites
-- [Docker Desktop](https://www.docker.com) installed
-- Git installed
-
-### Steps
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/meagle-pixel/SpaceNews.git
-cd SpaceNews
-```
-
-2. **Configure the environment**
-   - Copy `.env.example` to `.env`
-   - Fill in your database credentials:
-```
-DB_HOST=mysql
-DB_NAME=spacenews
-DB_USER=root
-DB_PASS=yourpassword
-```
-
-3. **Start the Docker containers**
-```bash
-docker-compose up -d
-```
-
-4. **Import the database**
-   - Open phpMyAdmin at `http://localhost:8080`
-   - Create a database named `spacenews`
-   - Import `SQL/bdd.sql`
-
-5. **Access the application**
-   - Public site: `http://localhost/SpaceNews`
-   - Admin panel: `http://localhost/SpaceNews/admin/articlesAdmin.php`
-
-### Test credentials
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | admin@spacenews.fr | yourpassword |
-
----
-
-## Deployment
-- Live site: https://maximepau.alwaysdata.net/index.php
-- Repository: https://github.com/meagle-pixel/SpaceNews.git
-
----
-
-## Project structure
-
-```text
-SPACENEWS/
-├── admin/
-│   ├── article-create.php
-│   ├── article-delete.php
-│   ├── article-edit.php
-│   ├── articlesAdmin.php
-│   └── auth-check.php
-├── css/
-│   └── style.css
-├── images/
-├── includes/
-│   ├── db.php
-│   ├── footer.php
-│   └── header.php
-├── js/
-│   ├── data/
-│   └── index.js
-├── SQL/
-│   └── bdd.sql
-├── vendor/
-├── articles.php
-├── connexion.php
-├── deconnexion.php
-├── details.php
-├── index.php
-├── inscription.php
-├── ssolaire.php
-├── .env.example
-├── .gitignore
-├── composer.json
-├── composer.lock
-├── docker-compose.yml
-├── Dockerfile.php
-├── robots.txt
-└── README.md
-```
-
----
-
-## Screenshots
-
-### Article form
-
-![Form](https://i.ibb.co/zTn00Snh/formulaire.png)
-
----
-
-### Planetarium
-
-![Planetarium](https://i.ibb.co/gZVDcdqc/planetarium.png)
-
----
-
-### Planet filter
-
-![Planet filter](https://i.ibb.co/23xwVFD4/filtre.png)
-
----
-
-## Author
-
-Maxime Paulin – DWWM cohort 2025–2026
-
----
-
-*Created for the DWWM training – Professional Title Level 5*
-*RNCP37674 – Version 2026*
-
+[LinkedIn](https://www.linkedin.com/in/maxime-paulin-968ab1266/) · [GitHub](https://github.com/meagle-pixel)
